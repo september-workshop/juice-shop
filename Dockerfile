@@ -35,7 +35,10 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 WORKDIR /juice-shop
-COPY --from=installer --chown=65532:0 /juice-shop .
-USER 65532
+# The wrong way
+COPY --from=installer /juice-shop .
+# A better way
+#COPY --from=installer --chown=65532:0 /juice-shop .
+#USER 65532
 EXPOSE 3000
 CMD ["/juice-shop/build/app.js"]
